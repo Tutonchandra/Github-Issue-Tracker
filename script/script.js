@@ -8,7 +8,7 @@ const closedCardContainer = document.getElementById("closedCardContainer")
 const issueCount = document.getElementById("issueCount");
 const issueModal = document.getElementById("openIssueModal");
 const loadingSpinner = document.getElementById("loadingSpinner");
-const container =document.getElementById("container");
+const container = document.getElementById("container");
 
 const modalTitle = document.getElementById("modalTitle")
 const modalStatus = document.getElementById("modalStatus")
@@ -20,11 +20,11 @@ const modalAssignee = document.getElementById("modalAssignee")
 const modalPriority = document.getElementById("modalPriority")
 
 
-function showLoading(){
+function showLoading() {
     loadingSpinner.classList.remove("hidden")
-    
+
 }
-function hideLoading(){
+function hideLoading() {
     loadingSpinner.classList.add("hidden")
 
 }
@@ -35,7 +35,7 @@ function switchTab(tab) {
 
     const tabs = ["all", "open", "closed"];
     currentTab = tab;
-    
+
     for (const t of tabs) {
         const tabName = document.getElementById("tabIssue-" + t)
         if (t === tab) {
@@ -83,7 +83,7 @@ function switchTab(tab) {
 }
 switchTab(currentTab) // tab switch function call
 async function loadIssues() {
-    showLoading(); 
+    showLoading();
     try {
         const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
         const data = await res.json();
@@ -93,7 +93,7 @@ async function loadIssues() {
     } catch (e) {
         console.e("Error loading issues:", e);
     } finally {
-        hideLoading(); 
+        hideLoading();
     }
 }
 
@@ -153,24 +153,24 @@ function displayIssues(issues) {
             const openCard = createCard(issues);
 
             openCardContainer.appendChild(openCard);
-            
+
         }
-        
+
 
         if (issues.status === "closed") {
             const closedCard = createCard(issues);
             closedCardContainer.appendChild(closedCard);
         }
     });
-hideLoading()
+    hideLoading()
 }
 
 
 async function openIssueModal(id) {
-    
+
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
     const data = await res.json();
-    
+
     const singleIssue = data.data;
     // console.log(singleIssue)
     issueModal.showModal()
